@@ -1,0 +1,20 @@
+ion-avatar {
+    width: 40px;
+    height: 40px;
+}
+
+
+.title {
+    padding-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    ion-note {
+        font-size: 8px;
+    }
+    text-align: initial;
+    ion-title {
+        padding: 0;
+        font-size: 12px;
+    }
+}

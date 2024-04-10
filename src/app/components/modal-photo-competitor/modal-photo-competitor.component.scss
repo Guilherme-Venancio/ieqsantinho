@@ -1,0 +1,45 @@
+.footer_modal {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-bold);
+    font-weight: 700;
+    color: var(--Texto1);
+}
+.div_modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 30px;
+    text-align: center;
+    min-height: 373px;
+    gap: 10px;
+}
+.button_card {
+    height: 49px;
+    z-index: 1;
+    font-family: var(--font-bold);
+}
+.image-modal {
+    position: relative;
+}
+
+.open_camera {
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    color: white;
+    font-family: var(--font-bold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.5px !important;
+}
+
+.end-account {
+    color: var(--Interativs);
+    text-decoration: underline;
+    cursor: pointer;
+}

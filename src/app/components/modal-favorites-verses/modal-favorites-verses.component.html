@@ -1,0 +1,16 @@
+<div class="list-modal">
+  <ion-toolbar>
+    <ion-title>Favoritos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="modalCtrl.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-item mode="ios" [button]="true" style="margin-top: 10px; border-radius: 16px;" detail="true" detail-icon="trash" *ngFor="let favoriteVerses of favoritesVerses" (click)="selectedVerses(favoriteVerses)">
+    <ion-label>
+      <h2>{{favoriteVerses.title}}</h2>
+      <p> {{favoriteVerses.book.name}} {{favoriteVerses.chapter + 1}}: {{versesViews}}</p>
+    </ion-label>
+  </ion-item>
+</div>

@@ -1,0 +1,48 @@
+.book {
+  font-size: 25px;
+  height: calc(100vh / 4);
+  width: calc(100vw / 2 - 10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-size: 36px;
+  text-transform: uppercase;
+  margin: 5px 0px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.book p {
+  font-size: 16px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  margin: 0;
+  text-align: end;
+  text-transform: none;
+}
+
+.versiculo {
+  padding: 5px;
+}
+
+.options-toolbar {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  background: var(--ion-color-primary);
+}
+
+.label-selected {
+  background: #fefefe;
+}
+
+ion-icon {
+  color: white;
+}

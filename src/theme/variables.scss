@@ -236,9 +236,40 @@
 }
 
 html {
-  /* 
+  /*
    * For more information on dynamic font scaling, visit the documentation:
    * https://ionicframework.com/docs/layout/dynamic-font-scaling
    */
-  --ion-dynamic-font: var(--ion-default-dynamic-font);
+  --ion-dynamic-font: 'Poppins Regular';
+}
+
+* {
+  font-family: 'Poppins Regular', sans-serif !important;
+}
+
+ion-header {
+  box-shadow: none !important;
+}
+
+ion-button {
+  --border-radius: 8px;
+  --box-shadow: none;
+  text-transform: none;
+  font-size: 16px;
+  padding: 10px;
+  float: right;
+  margin-right: 10px;
+}
+
+.label-text {
+  color: var(--ion-color-primary);
+}
+
+.amodal{
+  --width: fit-content;
+  --min-width: 282px;
+  --min-height: 373px;
+  --height: fit-content;
+  --border-radius: 16px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
 }

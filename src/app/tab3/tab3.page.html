@@ -1,17 +1,71 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+<ion-header>
+  <ion-toolbar mode="md" style="text-align: center; position: relative;">
+    <ion-buttons *ngIf="optionsToolbar === null" slot="start">
+      <ion-button *ngIf="current === 3"
+        (click)="selectedchapter > 0 ? selectedchapter = selectedchapter - 1 : selectedchapter">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{current === 1 ? '' : selectedBook.name}} {{current === 3 ? selectedchapter + 1 : ''}}</ion-title>
+    <ion-buttons slot="end" *ngIf="optionsToolbar === null">
+      <ion-button
+        (click)="selectedchapter + 1 < selectedBook.chapters.length ? selectedchapter = selectedchapter + 1 : ''"
+        *ngIf="current === 3">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+      <ion-button id="click-trigger" [ngStyle]="{'display': current === 1 ? '' : 'none'}">
+        <ion-icon name="reorder-four"></ion-icon>
+      </ion-button>
+      <ion-popover trigger="click-trigger" triggerAction="click" [dismissOnSelect]="true">
+        <ng-template>
+          <ion-content>
+            <ion-list>
+              <ion-item (click)="openFavoriteVerse()" [button]="true" [detail]="false">Favoritos</ion-item>
+              <ion-item [button]="true" [detail]="false">Continuar de onde parou</ion-item>
+              <!-- <ion-item [button]="true" id="nested-trigger">More options...</ion-item> -->
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+    </ion-buttons>
+    <div class="options-toolbar" *ngIf="optionsToolbar !== null">
+      <ion-buttons>
+        <ion-button (click)="writeToClipboard(selectedBook, selectedchapter, optionsToolbar)">
+          <ion-icon name="copy-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="saveFavoriteVerse(selectedBook, selectedchapter, optionsToolbar)">
+          <ion-icon name="star-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="shareVerse(selectedBook, selectedchapter)">
+          <ion-icon name="share-social-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="optionsToolbar = null">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-row *ngIf="current === 1" style="justify-content: space-between; margin: 5px;">
+    <ion-card (click)="selectedBook = book; current = 2" class="book" *ngFor="let book of bibleData; let i = index">
+      {{book.abbrev}}
+      <p>{{book.name}}</p>
+    </ion-card>
+  </ion-row>
+  <ion-row *ngIf="current === 2" style="justify-content: space-between; margin: 5px;">
+    <ion-card (click)="selectedchapter = i; current = 3" class="book"
+      *ngFor="let chapter of selectedBook.chapters; let i = index">
+      {{i + 1}}
+    </ion-card>
+  </ion-row>
+  <ion-row *ngIf="current === 3">
+    <ion-label mode="md" [ngClass]="{'label-selected' : verifyVerseSelected(i, versiculo)}" class="versiculo"
+      *ngFor="let versiculo of selectedBook.chapters[selectedchapter]; let i = index" id="item-{{i}}">
+      <p (click)="openOptionsToolbar(i, versiculo)">
+        {{i + 1}}. {{versiculo}}
+      </p>
+    </ion-label>
+  </ion-row>
 </ion-content>
+<!-- (click)="saveFavoriteVerse(selectedBook, selectedchapter, i)" -->

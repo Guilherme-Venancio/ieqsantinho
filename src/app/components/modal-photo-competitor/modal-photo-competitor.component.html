@@ -1,0 +1,26 @@
+<div class="div_modal">
+  <div class="footer_modal">
+    <ion-label> Carregar Foto</ion-label>
+    <ion-icon (click)="modalCtrl.dismiss(); croppedImage = null" style="color: var(--Interativs); cursor: pointer; font-size: 20px;" name="close"></ion-icon>
+  </div>
+  <div class="image-modal">
+      <image-cropper
+        *ngIf="croppedImage"
+        #cropper
+        [imageBase64]="croppedImage"
+        format="webp"
+        [autoCrop]="false"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (imageLoadedFailed)="loadImageFailed()"
+        [imageQuality]="80"
+        output="base64"
+      >
+      </image-cropper>
+      <img style="object-fit: contain;" height="277" width="277" *ngIf="img && !croppedImage" [src]="img" />
+  </div>
+  <div class="footer_modal">
+    <a (click)="openPhotoGallery()" class="end-account" style="font-size: 12px;">Subir arquivos</a>
+    <ion-button (click)="handlerExit()" class="button_card">Concluir</ion-button>
+  </div>
+</div>
