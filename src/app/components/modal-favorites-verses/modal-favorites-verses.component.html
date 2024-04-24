@@ -7,10 +7,12 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-item mode="ios" [button]="true" style="margin-top: 10px; border-radius: 16px;" detail="true" detail-icon="trash" *ngFor="let favoriteVerses of favoritesVerses" (click)="selectedVerses(favoriteVerses)">
+  <ion-item mode="ios" style="margin-top: 10px; border-radius: 16px;" *ngFor="let favoriteVerses of favoritesVerses; let i = index" (click)="selectedVerses(favoriteVerses)">
     <ion-label>
       <h2>{{favoriteVerses.title}}</h2>
       <p> {{favoriteVerses.book.name}} {{favoriteVerses.chapter + 1}}: {{versesViews}}</p>
     </ion-label>
+    <ion-icon (click)="deleteFavoriteVerse(i)" name="trash" slot="end"></ion-icon>
   </ion-item>
+  <div *ngIf="!favoritesVerses.length" class="empty">Você não possiu versículos favoritados</div>
 </div>

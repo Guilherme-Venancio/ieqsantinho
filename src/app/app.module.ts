@@ -10,10 +10,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { ModalPhotoCompetitorComponent } from './components/modal-photo-competitor/modal-photo-competitor.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ModalFavoritesVersesComponent } from './components/modal-favorites-verses/modal-favorites-verses.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, ModalPhotoCompetitorComponent, ModalFavoritesVersesComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ImageCropperModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ImageCropperModule, BrowserAnimationsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

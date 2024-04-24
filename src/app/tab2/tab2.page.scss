@@ -1,0 +1,85 @@
+swiper-container {
+  width: 100%;
+  // position: fixed;
+}
+
+.render_img {
+  position: absolute;
+  top: calc(50% - 49px);
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 100;
+  background: transparent;
+  width: 90%;
+}
+
+.button_close {
+  margin: 0;
+  padding: 10px 0;
+  --background: transparent;
+  font-size: 16px
+}
+
+.img_selected {
+  min-height: 226px;
+  min-width: 95%;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  background-color: transparent;
+  box-shadow: none;
+  margin: 0 10px;
+  position: relative;
+  left: 0px;
+  transition: right 0.1s;
+}
+
+.img_selected img {
+  border-radius: 10px;
+}
+
+.img_selected span {
+  // border-bottom: 1px solid;
+  text-align: center;
+}
+
+// .img_selected {
+//   position: relative;
+//   left: -100%;
+//   transition: left 0.5s;
+// }
+
+.img_selected.ng-animating {
+  left: 0;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+// @keyframes slideOutLeft {
+//   from {
+//     transform: translateX(0);
+//   }
+
+//   to {
+//     transform: translateX(-100%);
+//   }
+// }
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+

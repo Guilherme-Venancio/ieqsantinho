@@ -1,16 +1,13 @@
 <ion-header>
   <ion-toolbar mode="md" style="text-align: center; position: relative;">
     <ion-buttons *ngIf="optionsToolbar === null" slot="start">
-      <ion-button *ngIf="current === 3"
-        (click)="selectedchapter > 0 ? selectedchapter = selectedchapter - 1 : selectedchapter">
+      <ion-button *ngIf="current === 3" (click)="selectedchapter > 0 ? selectedchapter = selectedchapter - 1 : selectedchapter">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>{{current === 1 ? '' : selectedBook.name}} {{current === 3 ? selectedchapter + 1 : ''}}</ion-title>
     <ion-buttons slot="end" *ngIf="optionsToolbar === null">
-      <ion-button
-        (click)="selectedchapter + 1 < selectedBook.chapters.length ? selectedchapter = selectedchapter + 1 : ''"
-        *ngIf="current === 3">
+      <ion-button (click)="selectedchapter + 1 < selectedBook.chapters.length ? selectedchapter = selectedchapter + 1 : ''" *ngIf="current === 3">
         <ion-icon name="arrow-forward-outline"></ion-icon>
       </ion-button>
       <ion-button id="click-trigger" [ngStyle]="{'display': current === 1 ? '' : 'none'}">
@@ -21,8 +18,7 @@
           <ion-content>
             <ion-list>
               <ion-item (click)="openFavoriteVerse()" [button]="true" [detail]="false">Favoritos</ion-item>
-              <ion-item [button]="true" [detail]="false">Continuar de onde parou</ion-item>
-              <!-- <ion-item [button]="true" id="nested-trigger">More options...</ion-item> -->
+              <ion-item (click)="goToLatestVerses()" [button]="true" [detailIcon]="true" [detail]="false">Continuar de onde parou</ion-item>
             </ion-list>
           </ion-content>
         </ng-template>
@@ -54,8 +50,7 @@
     </ion-card>
   </ion-row>
   <ion-row *ngIf="current === 2" style="justify-content: space-between; margin: 5px;">
-    <ion-card (click)="selectedchapter = i; current = 3" class="book"
-      *ngFor="let chapter of selectedBook.chapters; let i = index">
+    <ion-card (click)="openVerse(i)" class="book" *ngFor="let chapter of selectedBook.chapters; let i = index">
       {{i + 1}}
     </ion-card>
   </ion-row>
@@ -68,4 +63,3 @@
     </ion-label>
   </ion-row>
 </ion-content>
-<!-- (click)="saveFavoriteVerse(selectedBook, selectedchapter, i)" -->

@@ -1,0 +1,17 @@
+<ion-content [fullscreen]="true">
+  <ion-segment mode="md" value="default">
+    <ion-segment-button value="default">
+      <ion-label>Fotos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment">
+      <ion-label>Vídeos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" *ngFor="let banner of banners">
+        <img [src]="banner" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

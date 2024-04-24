@@ -2,3 +2,11 @@
   height: 70vh;
   width: 90vw;
 }
+
+.empty {
+  position: absolute;
+  top: calc(40% - 10px);
+  // right: calc(50%);
+  text-align: center;
+  width: 100%;
+}

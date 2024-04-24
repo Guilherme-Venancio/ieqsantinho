@@ -1,17 +1,31 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-datetime mode="md" presentation="date" #a [highlightedDates]="highlightedDates" [(ngModel)]="dateSelected" (ngModelChange)="handlerSelectedImage()">
+    <!-- <h2 slot="title">Próximos Eventos</h2> -->
+  </ion-datetime>
+  <ion-row>
+    <ion-card class="img_selected" [@slideInRight]="trigger ? 'active' : 'inactive'">
+      <img *ngIf="imgSelected" width="100%" [src]="imgSelected" alt="" (click)="imgRender = imgSelected">
+      <span *ngIf="!imgSelected"><h6>Sem eventos hoje </h6><h1><ion-icon name="calendar"></ion-icon></h1>Selecione os próximos eventos no calendário </span>
+    </ion-card>
+  </ion-row>
+  <ion-row>
+    <p style="margin: 5px 0px 5px 10px;">Eventos Próximos</p>
+    <ion-card style="display: flex; margin-top: 0;" *ngFor="let banner of banners" (click)="imgRender = banner.img">
+      <img width="50%" [src]="banner.img" alt="">
+      <span style="padding: 10px;">
+        <ion-icon name="calendar-outline"></ion-icon>
+        18/04 Domingo
+        <br> <br>
+        <ion-icon name="time-outline"></ion-icon>
+        09:00 ás 11:00 e 18:00 ás 20:00
+      </span>
+    </ion-card>
+  </ion-row>
+  <ion-backdrop *ngIf="imgRender" style="opacity: 0.9;"></ion-backdrop>
 </ion-content>
+<div class="render_img" *ngIf="imgRender">
+  <ion-button class="button_close" (click)="imgRender = null">
+    <ion-icon name="close"></ion-icon>
+  </ion-button>
+  <img style="border-radius: 10px;" [src]="imgRender" alt="">
+</div>

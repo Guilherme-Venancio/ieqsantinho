@@ -1,0 +1,27 @@
+.user-image {
+  --size: 100px;
+  margin: auto;
+  position: relative;
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.user-name {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.camera-edit {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: var(--ion-color-primary);
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.editItem {
+  --border-color: var(--ion-color-primary)
+}

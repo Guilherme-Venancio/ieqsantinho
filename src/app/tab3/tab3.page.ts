@@ -32,11 +32,10 @@ export class Tab3Page implements OnInit{
   ) {   }
 
   ngOnInit() {
+    // this.alert.present('bliblia', `${bibleData}`)
     this.platform.backButton.subscribeWithPriority(10, () => {
       if(this.current === 3) {
         localStorage.setItem('lastestVerses', JSON.stringify({book: this.selectedBook, chapter: this.selectedchapter}))
-        // const lastestVersesArray = !lastestVerses || lastestVerses === 'undefined' || lastestVerses === 'null' ? [] : JSON.parse(lastestVerses)
-        // lastestVersesArray.push({book: this.selectedBook, chapter: this.selectedchapter})
       }
       this.optionsToolbar = null
       if(this.current > 1) this.current = this.current - 1
@@ -49,11 +48,18 @@ export class Tab3Page implements OnInit{
     this.content.scrollToPoint(0, yOffset, 500);
   }
 
+  openVerse(i) {
+    this.selectedchapter = i;
+    this.current = 3;
+    localStorage.setItem('lastestVerses', JSON.stringify({book: this.selectedBook, chapter: this.selectedchapter}))
+  }
+
   openOptionsToolbar(i, verse) {
     if(!this.optionsToolbar) return this.optionsToolbar = [{index: i, verse: verse}]
     const index = this.optionsToolbar.findIndex(e => e.index === i)
     if(index > -1) {
       this.optionsToolbar.splice(index, 1)
+      if(this.optionsToolbar.length < 1) this.optionsToolbar = null
       return
     }
     this.optionsToolbar.push({index: i, verse: verse})
@@ -118,5 +124,20 @@ export class Tab3Page implements OnInit{
     const result = this.optionsToolbar.filter(e => e.verse.includes(verse) && e.index === i)
     if(result.length) return true
     else return false
+  }
+
+  goToLatestVerses() {
+    const lastestVerses = localStorage.getItem('lastestVerses')
+    const lastestVersesArray = !lastestVerses || lastestVerses === 'undefined' || lastestVerses === 'null' ? [] : JSON.parse(lastestVerses)
+    if(lastestVersesArray) {
+      this.selectedBook = lastestVersesArray?.book
+      this.selectedchapter = lastestVersesArray?.chapter
+      this.current = 3
+      // const timeout = setTimeout(() => {
+      //   this.scrollToIndex(lastestVersesArray?.verse[0].index)
+      //   this.optionsToolbar = lastestVersesArray?.verse
+      //   clearTimeout(timeout)
+      // }, 100);
+    }
   }
 }

@@ -273,3 +273,22 @@ ion-button {
   --border-radius: 16px;
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
 }
+
+ion-datetime {
+  // min-height: 40vh;
+  max-width: 100%;
+  --background: transparent;
+  --background-rgb: 255, 241, 242;
+
+  border-radius: 16px;
+  box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
+}
+ion-datetime.ios::part(calendar-day active),
+ion-datetime.ios::part(calendar-day active):focus {
+  border: none;
+  border-bottom: 2px solid var(--ion-color-secondary);
+  border-radius: initial;
+  background-color: transparent;
+  color: white;
+  box-shadow: none;
+}

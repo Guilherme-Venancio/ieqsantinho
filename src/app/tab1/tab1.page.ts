@@ -25,9 +25,7 @@ export class Tab1Page {
   constructor() {}
 
   ionViewDidEnter() {
-    console.log('aaa')
     this.swiper = this.swiper ?? new Swiper(this.swiperContainer.nativeElement, {
-      // configurações do Swiper aqui
       slidesPerView: 2.5,
       spaceBetween: 10,
     });

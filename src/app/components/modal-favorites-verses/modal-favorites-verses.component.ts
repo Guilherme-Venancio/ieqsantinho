@@ -31,4 +31,12 @@ export class ModalFavoritesVersesComponent  implements OnInit {
     this.modalCtrl.dismiss(favoriteVerses)
   }
 
+  deleteFavoriteVerse(i) {
+    const favoritesVerses = localStorage.getItem('favoritesVerses')
+    const favoritesVersesArray = !favoritesVerses || favoritesVerses === 'undefined' || favoritesVerses === 'null' ? [] : JSON.parse(favoritesVerses)
+    this.favoritesVerses.splice(i, 1)
+    favoritesVersesArray.splice(i, 1)
+    localStorage.setItem("favoritesVerses", JSON.stringify(favoritesVersesArray));
+  }
+
 }
