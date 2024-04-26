@@ -2,6 +2,10 @@ import { ModalController } from '@ionic/angular';
 import { Component } from '@angular/core';
 import { Contact } from '../models/Contact';
 import { ModalPhotoCompetitorComponent } from '../components/modal-photo-competitor/modal-photo-competitor.component';
+import { UsersService } from '../services/users/users.service';
+import { Subscription } from 'rxjs';
+import { User } from '../models/User';
+import { StorageService } from '../services/storage/storage.service';
 
 @Component({
   selector: 'app-tab4',
@@ -10,54 +14,63 @@ import { ModalPhotoCompetitorComponent } from '../components/modal-photo-competi
 })
 export class Tab4Page {
 
-  public contact: Contact;
   edit: boolean = false
   editName: string = ''
+  firstName: string = ''
+  lastName: string = ''
+  private subscription1: Subscription;
+  user: User = new User()
 
   constructor(
-    private modal: ModalController
+    private modal: ModalController,
+    private usersService: UsersService,
+    private storageService: StorageService,
   ) {}
 
   ngOnInit() {
-    const daata =  {
-      photo: '../../assets/logo/1633539455254.jpg',
-      firstName: 'Guilherme',
-      lastName: 'Venâncio',
-      id: '1',
-      phone: '(31) 9 8306-8810',
-      email: 'guilhermevenancio28@hotmail.com',
-      category: 'Membro'
+    this.subscription1 = this.usersService.getUserEvent().subscribe((user:User) => {
+      if(user) this.user = user
+    })
+    this.user = this.usersService.user
+    for (let index = 1; index < this.user.fullName.split(' ').length; index++) {
+      this.lastName += ' ' + this.user.fullName.split(' ')[index]
     }
-    this.contact = daata
-    this.editName = this.contact.firstName + ' ' + this.contact.lastName
+    this.firstName = this.user.fullName?.split(' ')[0]
+    this.lastName = this.lastName.replace('undefined', '')
+    this.editName = this.firstName + this.lastName
   }
 
   openPhoto() {
     this.modal.create({
       component: ModalPhotoCompetitorComponent,
-      componentProps: { photo: this.contact.photo },
+      componentProps: { photo: this.user.photo },
       cssClass: 'amodal',
       backdropDismiss: false,
     }).then(modal => {
       modal.present()
       modal.onDidDismiss().then(result =>{
-        this.contact.photo = <string>result.data
+        if(result.data) {
+          this.storageService.uploadBlob(result.data, `users/${Date.now()}`).then(url => {
+            this.user.photo = url
+            this.usersService.updateUser(this.user)
+          })
+        }
       })
     })
   }
 
-  saveContact() {
+  saveUser() {
     if(this.edit) {
       const editName = this.editName.split(' ')
-      if(!editName[1]) return window.alert('Nescessário ao mínimo um sobrenome')
-      this.contact.firstName = editName[0]
-      this.contact.lastName = editName[1]
+      if(editName.length < 1) return window.alert('Nescessário ao mínimo um sobrenome')
+      this.user.fullName = this.editName
+      this.usersService.updateUser(this.user)
     }
     this.edit = !this.edit
   }
 
   ngOnDestroy() {
-    // this.sub1.unsubscribe();
+    this.subscription1.unsubscribe();
   }
 
 }

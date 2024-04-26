@@ -1,17 +1,40 @@
 <ion-content [fullscreen]="true">
-  <ion-segment mode="md" value="default">
+  <!-- <ion-segment mode="md" value="default">
     <ion-segment-button value="default">
       <ion-label>Fotos</ion-label>
     </ion-segment-button>
     <ion-segment-button value="segment">
       <ion-label>Vídeos</ion-label>
     </ion-segment-button>
-  </ion-segment>
+  </ion-segment> -->
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="openPhotoGallery()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="photoToView = false">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Galeria de fotos</ion-title>
+  </ion-toolbar>
   <ion-grid>
     <ion-row>
-      <ion-col size="4" *ngFor="let banner of banners">
-        <img [src]="banner" />
+      <ion-col style="padding: 3px; height: calc(100vh / 7 + 5px)" size="4" *ngFor="let banner of banners">
+        <img style="height: calc(100vh / 7 - 3px); width: calc(100vw / 3); object-fit: cover;" (click)="photoToView = true" [src]="banner.url" />
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div class="photo_to_view" *ngIf="photoToView">
+    <swiper-container #swiperGallery [navigation]="true" zoom-max-ratio="3"
+    zoom-min-ratio="1">
+      <swiper-slide *ngFor="let banner of banners">
+        <div class="swiper-zoom-container">
+          <img [src]="banner.url" alt="">
+        </div>
+        </swiper-slide>
+      </swiper-container>
+    </div>
 </ion-content>

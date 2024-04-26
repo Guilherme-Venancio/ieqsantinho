@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/User';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent  implements OnInit {
+  private subscription1: Subscription;
+  user: User = new User()
 
-  constructor() { }
+  constructor(private usersService: UsersService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscription1 = this.usersService.getUserEvent().subscribe((user:User) => {
+      if(user) this.user = user
+    })
+    this.user = this.usersService.user
+  }
 
 }

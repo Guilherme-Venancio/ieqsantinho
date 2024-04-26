@@ -25,3 +25,18 @@
 .editItem {
   --border-color: var(--ion-color-primary)
 }
+
+.photo_to_view {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
+
+swiper-container {
+  width: 100vw;
+  // position: fixed;
+}

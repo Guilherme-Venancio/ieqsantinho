@@ -1,27 +1,27 @@
-<ion-content [fullscreen]="true" *ngIf="contact">
+<ion-content [fullscreen]="true" *ngIf="user">
   <ion-row>
     <ion-col class="content-col">
       <ion-thumbnail class="user-image" (click)="openPhoto()">
-        <img [src]="contact.photo">
+        <img [src]="user.photo">
         <ion-icon class="camera-edit" name="camera"></ion-icon>
       </ion-thumbnail>
       <ion-text color="dark">
-        <h2 class="user-name">{{contact.firstName}} {{contact.lastName}}</h2>
+        <h2 class="user-name">{{firstName}} {{lastName}}</h2>
       </ion-text>
       <ion-list>
         <ion-item [ngClass]="{'editItem' : edit}">
           <ion-input color="primary" label="Nome completo" labelPlacement="stacked" [readonly]="!edit"[(ngModel)]="editName" />
         </ion-item>
         <ion-item [ngClass]="{'editItem' : edit}">
-          <ion-input label="Telefone" labelPlacement="stacked" [readonly]="!edit"[(ngModel)]="contact.phone" />
+          <ion-input label="Telefone" labelPlacement="stacked" [readonly]="!edit"[(ngModel)]="user.phone" />
         </ion-item>
         <ion-item [ngClass]="{'editItem' : edit}">
-          <ion-input label="E-mail" labelPlacement="stacked" [readonly]="!edit"[(ngModel)]="contact.email" />
+          <ion-input label="E-mail" labelPlacement="stacked" [readonly]="!edit"[(ngModel)]="user.email" />
         </ion-item>
         <ion-item [ngClass]="{'editItem' : edit}">
-          <ion-input label="Cargo" labelPlacement="stacked" [readonly]="!edit" [(ngModel)]="contact.category" />
+          <ion-input label="Cargo" labelPlacement="stacked" [readonly]="!edit" [(ngModel)]="user.category" />
         </ion-item>
-        <ion-button (click)="saveContact()" slot="end" color="primary" *ngIf="contact">
+        <ion-button (click)="saveUser()" slot="end" color="primary" *ngIf="user">
             {{ edit ? 'Salvar' : 'Editar' }}
         </ion-button>
       </ion-list>

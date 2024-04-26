@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "116713661624",
+    "project_id": "ieqsantinho-f61ad",
+    "storage_bucket": "ieqsantinho-f61ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116713661624:android:c116de2657721f7e7a404d",
+        "android_client_info": {
+          "package_name": "br.com.ieqsantinho"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8yDx_XCuW-QL6R-zyF28Yudtk5a0UMzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

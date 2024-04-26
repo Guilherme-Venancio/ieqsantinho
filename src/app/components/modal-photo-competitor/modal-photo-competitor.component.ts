@@ -74,26 +74,19 @@ export class ModalPhotoCompetitorComponent implements OnInit {
     if (this.croppedImage) return this.cropImage();
     if (!this.editPhoto) return this.modalCtrl.dismiss();
     this.photo = this.img
-    this.modalCtrl.dismiss(this.img);
-    // this.putCompetitorPhoto();
+    const blob = this.base64ToBlob(this.img.replace('data:image/webp;base64,', ''), 'image/webp');
+    console.log(blob)
+    this.modalCtrl.dismiss(blob);
   }
 
-  // putCompetitorPhoto() {
-  //   const body = {
-  //     url_photo: this.img,
-  //   };
-  //   this.competitorService.postCompetitorPhoto(body).subscribe({
-  //     next: (response: any) => {
-  //       this.competitor = <Competitor>response.data;
-  //       this.competitorService.setCompetitor(this.competitor);
-  //       this.modalCtrl.dismiss();
-  //       this.toastService.success("Dados salvos");
-  //     },
-  //     error: (error: any) => {
-  //       this.img =
-  //         this.competitor.url_photo || "../../../assets/svg/userGeneric.svg";
-  //       this.toastService.error("Não foi possível salvar os dados");
-  //     },
-  //   });
-  // }
+  base64ToBlob(base64: string, contentType: string): Blob {
+    const byteCharacters = atob(base64);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
+  }
+
 }

@@ -1,6 +1,6 @@
 <ion-app>
   <ion-header>
-    <app-header></app-header>
+    <app-header *ngIf="!isLoginPage"></app-header>
   </ion-header>
   <ion-content>
     <ion-router-outlet></ion-router-outlet>

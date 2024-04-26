@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package br.com.ieqsantinho;
 
 import com.getcapacitor.BridgeActivity;
 
