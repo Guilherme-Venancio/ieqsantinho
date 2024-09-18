@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import Swiper from 'swiper';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Banner } from '../models/Banner';
+import { BannerService } from '../services/banner/banner.service';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -9,9 +11,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     trigger('slideInRight', [
       state('active', style({ transform: 'translateX(0)' })),
       state('inactive', style({ transform: 'translateX(0)' })),
-      // state('void', style({ transform: 'translateX(-100%)' })),
-      // state('*', style({ transform: 'translateX(0)' })),
-      // transition(':enter', animate('260ms cubic-bezier(0.4, 0, 0.2, 1)')),
       transition('active => inactive', [
         style({ transform: 'translateX(-100%)' }),
         animate('260ms cubic-bezier(0.4, 0, 0.2, 1)', style({ transform: 'translateX(0%)' }))
@@ -20,31 +19,17 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         style({ transform: 'translateX(-100%)' }),
         animate('260ms cubic-bezier(0.4, 0, 0.2, 1)', style({ transform: 'translateX(0%)' }))
       ]),
-      // transition(':leave', animate('0.5s ease-in-out', style({ transform: 'translateX(-100%)' })))
-
     ])
   ]
 })
 export class Tab2Page {
-  // @ViewChild('swiperContainerEvents') swiperContainer!: ElementRef;
 
   swiper: Swiper
   imgRender: string = null
   imgSelected: string = null
   dateSelected: string = null
   trigger = true
-  banners = [
-    {
-      img: '../../assets/banners/cultorosa.png',
-      date: '2024-04-13'
-    },{
-      img: '../../assets/banners/E-TEMPO-TELAO.png',
-      date: '2024-04-14'
-    },{
-      img: '../../assets/banners/PROJETO-DE-VIDA.png',
-      date: '2024-04-28'
-    }
-  ]
+  banners: Banner[] = [new Banner()]
   highlightedDates = [
     {
       date: '2024-04-13',
@@ -63,19 +48,56 @@ export class Tab2Page {
     },
   ];
 
-  constructor() {}
+
+  constructor(private bannerService: BannerService) {}
 
   ionViewDidEnter() {
-    // this.swiper = this.swiper ?? new Swiper(this.swiperContainer.nativeElement, {
-    //   slidesPerView: 2.5,
-    //   spaceBetween: 10,
-    // });
+    this.bannerService.getBanner()
+    this.bannerService.getBannerEvent().subscribe((banners :any) => {
+      if(banners){
+        this.banners = banners
+        this.banners.forEach(banner => {
+          banner.date = this.formatarData(banner.date).toString()
+          this. highlightedDates = [
+            {
+              date: banner.date,
+              textColor: 'var(--ion-color-primary-contrast)',
+              backgroundColor: 'var(--ion-color-primary)',
+            },
+            {
+              date: banner.date,
+              textColor: 'var(--ion-color-primary-contrast)',
+              backgroundColor: 'var(--ion-color-primary)',
+            },
+            {
+              date: banner.date,
+              textColor: 'var(--ion-color-primary-contrast)',
+              backgroundColor: 'var(--ion-color-primary)',
+            },
+          ];
+        })
+      }
+    })
   }
 
   handlerSelectedImage() {
     this.trigger = !this.trigger
-    const response = this.banners.filter(banner => banner.date === this.dateSelected?.split('T')[0])
+    const response = this.banners.filter(banner => {
+      return banner.date.includes(this.dateSelected?.split('T')[0])
+    })
     if(!response.length) return this.imgSelected = null
-    return this.imgSelected = response[0].img
+    return this.imgSelected = response[0].url
+  }
+
+  formatarData(timestamp: any = '0') {
+    if(!timestamp && timestamp.length < 5) return ''
+    const date = new Date(Number(timestamp));
+    const dia = (date.getDate());
+    const mes = ((date.getMonth() + 1));
+    const ano = date.getFullYear();
+    const horas = (date.getHours());
+    const minutos = (date.getMinutes());
+    const dataFormatada = `${ano}-0${mes}-${dia}`;
+    return dataFormatada;
   }
 }

@@ -10,11 +10,14 @@
   </ion-row>
   <ion-row>
     <p style="margin: 5px 0px 5px 10px;">Eventos Próximos</p>
-    <ion-card style="display: flex; margin-top: 0;" *ngFor="let banner of banners" (click)="imgRender = banner.img">
-      <img width="50%" [src]="banner.img" alt="">
+    <ion-card style="display: flex; margin-top: 0;" *ngFor="let banner of banners" (click)="imgRender = banner.url">
+      <img width="50%" [src]="banner.url" alt="">
       <span style="padding: 10px;">
         <ion-icon name="calendar-outline"></ion-icon>
-        18/04 Domingo
+        <!-- 18/04 Domingo -->
+        <b *ngIf="banner.date">
+          {{banner.date.split('-')[2]}}/{{banner.date.split('-')[1]}}/{{banner.date.split('-')[0]}}
+        </b>
         <br> <br>
         <ion-icon name="time-outline"></ion-icon>
         09:00 ás 11:00 e 18:00 ás 20:00

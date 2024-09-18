@@ -42,7 +42,8 @@ export class Tab5Page {
       // return
       const blob = this.base64ToBlob(croppedImage.replace('data:image/webp;base64,', ''), 'image/webp');
       const url = await this.storageService.uploadBlob(blob, `banners/${Date.now()}`)
-      this.bannerService.createdUser({url: url, date: `${Date.now()}`})
+      this.bannerService.createdBanner({url: url, date: `${Date.now()}`})
+      this.bannerService.getBanner()
     } catch (error) {
       // this.toastService.error('Erro ao buscar a imagem')
       window.alert(error);

@@ -15,7 +15,7 @@ export class BannerService {
 
   constructor(private auth: Auth, private firestore: Firestore, private router: Router) { }
 
-  async createdUser(banner: Banner) {
+  async createdBanner(banner: Banner) {
     const bannersCollection = collection(this.firestore, 'banners');
     const bannersDocRef = doc(bannersCollection, banner.date);
     const banners: Banner = banner
